@@ -9,8 +9,9 @@ class Student(db.Model):
     programme = db.Column(db.String, nullable=True)
     karma = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, name):
+    def __init__(self, name, student_id):
         self.name = name
+        self.student_id = student_id
         self.karma = 0
 
     def to_json(self):
