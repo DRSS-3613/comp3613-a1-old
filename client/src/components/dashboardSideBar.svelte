@@ -16,14 +16,13 @@
 		}
 	}
 	//Options
-	const options = ['Search', 'Add Student', 'Update Student'];
+	const options = ['Add Student', 'Sign Out'];
 	const changeOption = (option) => {
-		if (option == 'Search') {
-			goto('/search');
-		} else if (option == 'Add Student') {
+		if (option == 'Add Student') {
 			goto('/add-student');
 		} else {
-			goto('/update-student');
+			//Todo
+			goto('/sign-out');
 		}
 	};
 </script>
