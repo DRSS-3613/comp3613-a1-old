@@ -188,3 +188,8 @@
         </div>
       </div>
     </section>
+
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+

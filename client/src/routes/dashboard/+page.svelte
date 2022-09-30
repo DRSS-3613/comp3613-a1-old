@@ -51,8 +51,6 @@
                     <div>
 						<Student/>
 					</div>
-                    
-				
 				</div>
 			</div> 
     </div>
@@ -63,3 +61,4 @@
 <svelte:head>
 	<title>Dashboard</title>
 </svelte:head>
+

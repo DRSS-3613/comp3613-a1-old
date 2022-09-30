@@ -210,4 +210,7 @@
         </div>
       </div>
     </section>
-   
+
+ <svelte:head>
+	<title>SignUp</title>
+</svelte:head> 
