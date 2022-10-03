@@ -16,10 +16,10 @@ class Student(db.Model):
 
     def to_json(self):
         return {
-            'id': self.id,
-            'student_id': self.student_id,
-            'name': self.name,
-            'faculty': self.faculty,
-            'programme': self.programme,
-            'karma': self.karma
+            "id": self.id,
+            "student_id": self.student_id,
+            "name": self.name,
+            "faculty": self.faculty,
+            "programme": self.programme,
+            "karma": self.karma,
         }
