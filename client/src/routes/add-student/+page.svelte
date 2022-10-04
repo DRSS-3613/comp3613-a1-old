@@ -1,5 +1,4 @@
-
-    <!-- ====== Banner Section Start -->
+   <!-- ====== Banner Section Start -->
     <div
       class="
         relative
@@ -16,7 +15,7 @@
         <div class="flex flex-wrap items-center -mx-4">
           <div class="w-full px-4">
             <div class="text-center">
-              <h1 class="font-semibold text-white text-4xl">Sign Up Page</h1>
+              <h1 class="font-semibold text-white text-4xl">Add Student</h1>
             </div>
           </div>
         </div>
@@ -96,7 +95,7 @@
           <div class="w-full px-4">
             <div
               class="
-                max-w-[525px]
+                sm:min-w-[525px]
                 mx-auto
                 text-center
                 bg-white
@@ -118,70 +117,72 @@
                 </a>
               </div>
               <form>
+                <div class="md:grid grid-cols-2 gap-6">
+                    <div class="mb-6 ">
+                        <input
+                    type="text"
+                    placeholder="Student ID"
+                    class="
+                    w-full
+                    rounded-md
+                    border
+                    bordder-[#E9EDF4]
+                    py-3
+                    px-5
+                    bg-[#FCFDFE]
+                    text-base text-body-color
+                    placeholder-[#ACB6BE]
+                    outline-none
+                    focus-visible:shadow-none
+                    focus:border-primary
+                    "
+                    />
+                </div>
                 <div class="mb-6">
-                  <input
+                    <input
                     type="text"
                     placeholder="Name"
                     class="
-                      w-full
-                      rounded-md
-                      border
-                      bordder-[#E9EDF4]
-                      py-3
-                      px-5
+                    w-full
+                    rounded-md
+                    border
+                    bordder-[#E9EDF4]
+                    py-3
+                    px-5
                       bg-[#FCFDFE]
                       text-base text-body-color
                       placeholder-[#ACB6BE]
                       outline-none
                       focus-visible:shadow-none
                       focus:border-primary
-                    "
-                  />
+                      "
+                      />
+                    </div>
                 </div>
-                <div class="mb-6">
-                  <input
-                    type="email"
-                    placeholder="Email"
+                 <div class="mb-6 ">
+                        <input
+                    type="text"
+                    placeholder="Degree"
                     class="
-                      w-full
-                      rounded-md
-                      border
-                      bordder-[#E9EDF4]
-                      py-3
-                      px-5
-                      bg-[#FCFDFE]
-                      text-base text-body-color
-                      placeholder-[#ACB6BE]
-                      outline-none
-                      focus-visible:shadow-none
-                      focus:border-primary
+                    w-full
+                    rounded-md
+                    border
+                    bordder-[#E9EDF4]
+                    py-3
+                    px-5
+                    bg-[#FCFDFE]
+                    text-base text-body-color
+                    placeholder-[#ACB6BE]
+                    outline-none
+                    focus-visible:shadow-none
+                    focus:border-primary
                     "
-                  />
-                </div>
-                <div class="mb-6">
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    class="
-                      w-full
-                      rounded-md
-                      border
-                      bordder-[#E9EDF4]
-                      py-3
-                      px-5
-                      bg-[#FCFDFE]
-                      text-base text-body-color
-                      placeholder-[#ACB6BE]
-                      outline-none
-                      focus-visible:shadow-none
-                      focus:border-primary
-                    "
-                  />
+                    />
                 </div>
                 <div class="mb-10">
                   <input
                     type="submit"
-                    value="Sign Up"
+                    value="Add Student"
                     class="
                       w-full
                       rounded-md
@@ -192,25 +193,14 @@
                       bg-primary
                       text-base text-white
                       cursor-pointer
-                      hover:shadow-md"
+                      hover:shadow-md
+                    "
                   />
                 </div>
               </form>
-        
-              <p class="text-base text-[#adadad]">
-                Already have an account?
-                <a href="/signin" class="text-primary hover:underline">
-                  Sign In
-                </a>
-              </p>
-
-
+    
             </div>
           </div>
         </div>
       </div>
-    </section>
-
- <svelte:head>
-	<title>SignUp</title>
-</svelte:head> 
+    </section> 
