@@ -10,6 +10,8 @@ from App.controllers import (
     get_all_users,
     create_student,
     get_all_students_json,
+    create_review,
+    get_reviews_by_student_id,
 )
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -94,9 +96,8 @@ student_cli = AppGroup("student", help="Student object commands")
 
 @student_cli.command("create-student")
 @click.argument("name")
-@click.argument("student_id")
-def create_student_command(name, student_id):
-    create_student(name, student_id)
+def create_student_command(name):
+    create_student(name)
     print(f"{name} created!")
 
 
@@ -104,4 +105,25 @@ def create_student_command(name, student_id):
 def get_students_command():
     print(get_all_students_json())
 
+
 app.cli.add_command(student_cli)
+
+
+review_cli = AppGroup("review", help="Review object commands")
+
+
+@review_cli.command("create-review")
+@click.argument("student_id")
+@click.argument("text")
+def create_review_command(student_id, text):
+    create_review(student_id, text)
+    print(f"Review created!")
+
+
+@review_cli.command("get-reviews")
+@click.argument("student_id")
+def get_reviews_by_student_id_command(student_id):
+    print(get_reviews_by_student_id(student_id))
+
+
+app.cli.add_command(review_cli)

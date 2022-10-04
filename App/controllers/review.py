@@ -18,7 +18,10 @@ def get_all_reviews():
 
 
 def get_reviews_by_student_id(student_id):
-    return Review.query.filter_by(student_id=student_id)
+    reviews = Review.query.filter_by(student_id=student_id)
+    if reviews:
+        return [review.to_json() for review in reviews]
+    return None
 
 
 def upvote_review(id):

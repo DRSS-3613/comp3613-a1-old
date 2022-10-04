@@ -19,5 +19,4 @@ class Student(db.Model):
             "name": self.name,
             "faculty": self.faculty,
             "programme": self.programme,
-            "karma": self.karma,
         }
