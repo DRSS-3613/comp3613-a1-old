@@ -4,6 +4,7 @@ from App.database import db
 
 def create_review(student_id, text):
     new_review = Review(student_id=student_id, text=text)
+    new_review.set_defaults()
     db.session.add(new_review)
     db.session.commit()
     return new_review

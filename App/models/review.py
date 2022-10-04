@@ -11,14 +11,19 @@ class Review(db.Model):
     def __init(self, student_id, text):
         self.student_id = student_id
         self.text = text
-        self.num_upvotes = 0
+
+    def set_defaults(self):
         self.num_downvotes = 0
+        self.num_upvotes = 0
 
     def upvote(self):
         self.num_upvotes += 1
 
     def downvote(self):
         self.num_downvotes += 1
+
+    def get_karma(self):
+        return self.num_upvotes - self.num_downvotes
 
     def to_json(self):
         return {

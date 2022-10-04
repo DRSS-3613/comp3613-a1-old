@@ -13,10 +13,17 @@ class Student(db.Model):
     def __init__(self, name):
         self.name = name
 
+    def get_karma(self):
+        karma = 0
+        for review in self.reviews:
+            karma += review.get_karma()
+        return karma
+
     def to_json(self):
         return {
             "id": self.id,
             "name": self.name,
             "faculty": self.faculty,
             "programme": self.programme,
+            "karma": self.get_karma(),
         }

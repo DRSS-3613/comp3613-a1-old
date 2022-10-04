@@ -12,6 +12,8 @@ from App.controllers import (
     get_all_students_json,
     create_review,
     get_reviews_by_student_id,
+    upvote_review,
+    downvote_review,
 )
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -124,6 +126,18 @@ def create_review_command(student_id, text):
 @click.argument("student_id")
 def get_reviews_by_student_id_command(student_id):
     print(get_reviews_by_student_id(student_id))
+
+
+@review_cli.command("upvote-review")
+@click.argument("review_id")
+def upvote_review_command(review_id):
+    upvote_review(review_id)
+
+
+@review_cli.command("downvote-review")
+@click.argument("review_id")
+def downvote_review_command(review_id):
+    downvote_review(review_id)
 
 
 app.cli.add_command(review_cli)
