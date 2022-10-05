@@ -29,8 +29,10 @@ def create():
 @user_views.route("/api/users/<id>", methods=["GET"])
 def get_user_by_id(id):
     user = get_user(id)
-    return jsonify(user.toJSON())
-
+    if user:
+        return jsonify(user.toJSON())
+    return jsonify({"error": "User not found"}), 404
+    
 @user_views.route("/api/users")
 def client_app():
     users = get_all_users_json()

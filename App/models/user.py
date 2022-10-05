@@ -28,16 +28,7 @@ class Reviewer(User):
     reviews = db.relationship(
         "Review", backref="reviewer", lazy=True, cascade="all, delete-orphan"
     )
-    def __init__(self, username, password):
-        super().__init__(username, password)
 
-    def toJSON(self):
-        return {"id": self.id, "username": self.username}
 
 class Admin(User):
     __tablename__ = "admin"
-    def __init__(self, username, password):
-        super().__init__(username, password)
-
-    def toJSON(self):
-        return {"id": self.id, "username": self.username}
