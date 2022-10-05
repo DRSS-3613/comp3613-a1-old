@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import create_db, get_migrate
 from App.main import create_app
 from App.controllers import (
-    create_user,
+    create_reviewer,
     get_all_users_json,
     get_all_users,
     create_student,
@@ -43,7 +43,7 @@ user_cli = AppGroup("user", help="User object commands")
 @click.argument("username", default="rob")
 @click.argument("password", default="robpass")
 def create_user_command(username, password):
-    create_user(username, password)
+    create_reviewer(username, password)
     print(f"{username} created!")
 
 

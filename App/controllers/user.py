@@ -1,28 +1,37 @@
-from App.models import User
+from App.models import Reviewer, Admin
 from App.database import db
 
 
-def create_user(username, password):
-    newuser = User(username=username, password=password)
-    db.session.add(newuser)
+def create_reviewer(username, password):
+    newReviewer = Reviewer(username=username, password=password)
+    db.session.add(newReviewer)
     db.session.commit()
-    return newuser
+    return newReviewer
 
 
+def create_admin(username, password):
+    newAdmin = Admin(username=username, password=password)
+    db.session.add(newAdmin)
+    db.session.commit()
+    return newAdmin
+
+
+# Leaving Admin out of the scope for now because I'm not sure what's the right way to do it
 def get_user_by_username(username):
-    return User.query.filter_by(username=username).first()
+    user = Reviewer.query.filter_by(username=username).first()
+    return user
 
 
 def get_user(id):
-    return User.query.get(id)
+    return Reviewer.query.get(id)
 
 
 def get_all_users():
-    return User.query.all()
+    return Reviewer.query.all()
 
 
 def get_all_users_json():
-    users = User.query.all()
+    users = Reviewer.query.all()
     if not users:
         return []
     users = [user.toJSON() for user in users]

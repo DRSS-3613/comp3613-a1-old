@@ -3,6 +3,7 @@ from App.database import db
 
 
 class User(db.Model):
+    __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String(120), nullable=False)
@@ -21,3 +22,14 @@ class User(db.Model):
     def check_password(self, password):
         """Check hashed password."""
         return check_password_hash(self.password, password)
+
+
+class Reviewer(User):
+    __tablename__ = "reviewer"
+    reviews = db.relationship(
+        "Review", backref="reviewer", lazy=True, cascade="all, delete-orphan"
+    )
+
+
+class Admin(User):
+    __tablename__ = "admin"
