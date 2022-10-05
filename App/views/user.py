@@ -17,6 +17,7 @@ def get_user_page():
     users = get_all_users()
     return render_template("users.html", users=users)
 
+
 @user_views.route("/users", methods=["POST"])
 def create():
     data = request.get_json()
@@ -32,11 +33,13 @@ def get_user_by_id(id):
     if user:
         return jsonify(user.toJSON())
     return jsonify({"error": "User not found"}), 404
-    
+
+
 @user_views.route("/api/users")
 def client_app():
     users = get_all_users_json()
     return jsonify(users)
+
 
 @user_views.route("/static/users")
 def static_user_page():

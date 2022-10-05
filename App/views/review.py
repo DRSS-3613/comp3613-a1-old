@@ -6,10 +6,12 @@ from App.controllers import (
     get_reviews_by_student_id,
     upvote_review,
     downvote_review,
-    get_review
+    get_review,
 )
 
 review_views = Blueprint("review_views", __name__, template_folder="../templates")
+
+
 @review_views.route("/reviews", methods=["POST"])
 def create():
     data = request.get_json()
@@ -17,16 +19,18 @@ def create():
     if review:
         return jsonify(review), 201
     return jsonify({"error": "Review not created"}), 400
-    
+
+
 @review_views.route("/reviews", methods=["GET"])
 def list():
     reviews = get_all_reviews()
     return jsonify([review.to_json() for review in reviews])
 
-#Get review using query parameter
-#How to use
-#/review?student_id=816024901
-#/review?id=1
+
+# Get review using query parameter
+# How to use
+# /review?student_id=816024901
+# /review?id=1
 @review_views.route("/review", methods=["GET"])
 def get_by_id():
     args = request.args
@@ -38,6 +42,7 @@ def get_by_id():
     if review:
         return jsonify(review)
     return jsonify({"error": "Review not found"}), 404
+
 
 @review_views.route("/reviews/vote", methods=["PUT"])
 def vote():

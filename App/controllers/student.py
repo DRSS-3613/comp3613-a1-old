@@ -3,8 +3,10 @@ from App.models import Student
 from App.database import db
 
 
-def create_student(student_id,name, programme, faculty):
-    new_student = Student(student_id=student_id, name=name, programme=programme, faculty=faculty)
+def create_student(student_id, name, programme, faculty):
+    new_student = Student(
+        student_id=student_id, name=name, programme=programme, faculty=faculty
+    )
     db.session.add(new_student)
     db.session.commit()
     return new_student
@@ -29,12 +31,14 @@ def get_all_students_json():
     students = [student.to_json() for student in students]
     return students
 
+
 def get_all_students_reviews(id):
     student = Student.query.get(id)
     if not student:
         return None
     reviews = [review.to_json() for review in student.reviews]
     return reviews
+
 
 def update_student(id, student_id, name, programme, faculty):
     student = Student.query.get(id)

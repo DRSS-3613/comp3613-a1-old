@@ -23,6 +23,7 @@ class User(db.Model):
         """Check hashed password."""
         return check_password_hash(self.password, password)
 
+
 class Reviewer(User):
     __tablename__ = "reviewer"
     reviews = db.relationship(

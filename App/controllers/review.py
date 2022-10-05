@@ -3,12 +3,12 @@ from App.models import Review, Student
 from App.database import db
 from App.models.user import Reviewer
 
-#Interesting Block of code
+# Interesting Block of code
 def create_review(student_id, user_id, text):
     print("Creating review", student_id, user_id, text)
     reviewer = Reviewer.query.get(user_id)
     student = Student.query.get(student_id)
-    new_review = None 
+    new_review = None
     if reviewer and student:
         new_review = Review(student_id=student_id, user_id=user_id, text=text)
         new_review.set_defaults()
@@ -24,6 +24,7 @@ def create_review(student_id, user_id, text):
     db.session.commit()
     return new_review.to_json()
 
+
 def get_review(id):
     return Review.query.get(id)
 
@@ -38,11 +39,13 @@ def get_reviews_by_student_id(student_id):
         return [review.to_json() for review in reviews]
     return None
 
+
 def get_reviews_by_user_id(user_id):
     reviews = Reviewer.query.get(user_id).reviews
     if reviews:
         return [review.to_json() for review in reviews]
     return None
+
 
 def upvote_review(id):
     review = get_review(id)

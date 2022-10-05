@@ -9,7 +9,7 @@ class Review(db.Model):
     num_upvotes = db.Column(db.Integer, nullable=True)
     num_downvotes = db.Column(db.Integer, nullable=True)
 
-    def __init__(self, student_id,user_id, text):
+    def __init__(self, student_id, user_id, text):
         self.student_id = student_id
         self.reviewer_id = user_id
         self.text = text
