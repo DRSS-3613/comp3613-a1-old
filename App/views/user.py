@@ -4,9 +4,11 @@ from flask_jwt import jwt_required
 
 from App.controllers import (
     create_reviewer,
+    create_admin,
+    get_reviewer_by_id,
+    get_admin_by_id,
     get_all_users,
     get_all_users_json,
-    get_user,
 )
 
 user_views = Blueprint("user_views", __name__, template_folder="../templates")
@@ -21,7 +23,12 @@ def get_user_page():
 @user_views.route("/users", methods=["POST"])
 def create():
     data = request.get_json()
-    user = create_reviewer(data["username"], data["password"])
+    if data["type"] == "reviewer":
+        user = create_reviewer(data["username"], data["password"])
+    elif data["type"] == "admin":
+        user = create_admin(data["username"], data["password"])
+    else:
+        return jsonify({"error": "Invalid user type"}), 400
     if user:
         return jsonify(user.toJSON())
     return jsonify({"error": "User not created"}), 400
@@ -29,7 +36,9 @@ def create():
 
 @user_views.route("/api/users/<id>", methods=["GET"])
 def get_user_by_id(id):
-    user = get_user(id)
+    user = get_reviewer_by_id(id)
+    if not user:
+        user = get_admin_by_id(id)
     if user:
         return jsonify(user.toJSON())
     return jsonify({"error": "User not found"}), 404
