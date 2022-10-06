@@ -5,8 +5,8 @@ class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String, nullable=False)
-    faculty = db.Column(db.String, nullable=True)
-    programme = db.Column(db.String, nullable=True)
+    faculty = db.Column(db.String, nullable=False)
+    programme = db.Column(db.String, nullable=False)
     reviews = db.relationship(
         "Review", backref="student", lazy=True, cascade="all, delete-orphan"
     )
