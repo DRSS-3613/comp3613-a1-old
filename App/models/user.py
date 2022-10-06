@@ -30,6 +30,13 @@ class Reviewer(User):
         "Review", backref="reviewer", lazy=True, cascade="all, delete-orphan"
     )
 
+    def toJSON(self):
+        return {"id": self.id, "username": self.username, "admin": "no"}
+
 
 class Admin(User):
     __tablename__ = "admin"
+    info = db.Column(db.String(120), nullable=True)
+
+    def toJSON(self):
+        return {"id": self.id, "username": self.username, "admin": "yes"}
