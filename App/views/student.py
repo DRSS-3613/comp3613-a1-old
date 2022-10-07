@@ -5,7 +5,7 @@ from App.controllers import (
     create_student,
     get_all_students_json,
     get_student,
-    get_user_by_student_id,
+    get_student_by_student_id,
     update_student,
     get_all_students_reviews,
 )
@@ -39,7 +39,7 @@ def get_by_id():
     args = request.args
     student = None
     if "student_id" in args:
-        student = get_user_by_student_id(args["student_id"])
+        student = get_student_by_student_id(args["student_id"])
     if "id" in args:
         student = get_student(args["id"])
     if student:
