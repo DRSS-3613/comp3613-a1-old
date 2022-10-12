@@ -8,6 +8,7 @@ from App.controllers import (
     get_student_by_student_id,
     update_student,
     get_all_students_reviews,
+    delete_student
 )
 
 student_views = Blueprint("student_views", __name__, template_folder="../templates")
@@ -58,6 +59,8 @@ def update(id):
 @student_views.route("/students/reviews/<id>", methods=["GET"])
 def list_student_reviews(id):
     reviews = get_all_students_reviews(id)
-    if reviews:
-        return jsonify(reviews)
-    return jsonify({"error": "Student not found"}), 404
+    return jsonify(reviews)
+
+@student_views.route("/students/<id>", methods=["DELETE"])
+def delete(id):
+    return jsonify(delete_student(id))

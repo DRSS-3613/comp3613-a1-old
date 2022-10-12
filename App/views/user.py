@@ -30,7 +30,7 @@ def create():
     else:
         return jsonify({"error": "Invalid user type"}), 400
     if user:
-        return jsonify(user.toJSON())
+        return jsonify(user.to_json())
     return jsonify({"error": "User not created"}), 400
 
 
@@ -40,7 +40,7 @@ def get_user_by_id(id):
     if not user:
         user = get_admin_by_id(id)
     if user:
-        return jsonify(user.toJSON())
+        return jsonify(user.to_json())
     return jsonify({"error": "User not found"}), 404
 
 

@@ -35,9 +35,9 @@ def get_all_students_json():
 def get_all_students_reviews(id):
     student = Student.query.get(id)
     if not student:
-        return None
+        return {"error": "Student not found"}, 404
     reviews = [review.to_json() for review in student.reviews]
-    return reviews
+    return reviews, 200
 
 
 def update_student(id, student_id=None, name=None, programme=None, faculty=None):
@@ -62,5 +62,5 @@ def delete_student(id):
     if student:
         db.session.delete(student)
         db.session.commit()
-        return jsonify({"success": "Student deleted"})
-    return jsonify({"error": "Student not found"}), 404
+        return {"success": "Student deleted"}, 200
+    return {"error": "Student not found"}, 404

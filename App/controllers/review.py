@@ -58,19 +58,25 @@ def get_reviews_by_user_id(user_id):
 
 def upvote_review(id, voter_id):
     review = get_review(id)
+    reviewer = Reviewer.query.get(voter_id)
+    if not reviewer:
+        return {"error": "Reviewer not found"}, 404
     if review:
         review.vote(voter_id, "up")
         db.session.add(review)
-        return db.session.commit()
+        return db.session.commit(), 200
     return None
 
 
 def downvote_review(id, voter_id):
     review = get_review(id)
+    reviewer = Reviewer.query.get(voter_id)
+    if not reviewer:
+        return {"error": "Reviewer not found"}, 404
     if review:
         review.vote(voter_id, "down")
         db.session.add(review)
-        return db.session.commit()
+        return db.session.commit(), 200
     return None
 
 
@@ -92,8 +98,8 @@ def delete_review(id):
     review = get_review(id)
     if review:
         db.session.delete(review)
-        return db.session.commit()
-    return None
+        return db.session.commit(), 200
+    return {"error": "Review not found"}, 404
 
 
 def update_review(id, text):
@@ -101,5 +107,5 @@ def update_review(id, text):
     if review:
         review.text = text
         db.session.add(review)
-        return db.session.commit()
-    return None
+        return db.session.commit(), 200
+    return {"error": "Review not found"}, 404

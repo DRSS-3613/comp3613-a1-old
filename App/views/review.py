@@ -7,6 +7,9 @@ from App.controllers import (
     upvote_review,
     downvote_review,
     get_review,
+    get_review_votes,
+    update_review,
+    delete_review
 )
 
 review_views = Blueprint("review_views", __name__, template_folder="../templates")
@@ -24,7 +27,7 @@ def create():
 @review_views.route("/reviews", methods=["GET"])
 def list():
     reviews = get_all_reviews()
-    return jsonify([review.to_json() for review in reviews])
+    return jsonify(reviews)
 
 
 # Get review using query parameter
@@ -40,13 +43,26 @@ def get_by_id():
     if "id" in args:
         review = get_review(args["id"])
     if review:
-        return jsonify(review)
+        return jsonify(review.to_json()), 200
     return jsonify({"error": "Review not found"}), 404
 
 
-@review_views.route("/reviews/vote", methods=["PUT"])
-def vote():
+@review_views.route("/reviews/<id>/vote", methods=["PUT"])
+def vote(id):
     data = request.get_json()
     if data["vote_type"] == "up":
-        return jsonify(upvote_review(data["id"]))
-    return jsonify(downvote_review(data["id"]))
+        return jsonify(upvote_review(id, data["reviewer_id"]))
+    return jsonify(downvote_review(id, data["reviewer_id"]))
+
+@review_views.route("/reviews/<id>", methods=["PUT"])
+def update(id):
+    data = request.get_json()
+    return jsonify(update_review(id, data["text"]))
+
+@review_views.route("/reviews/<id>/votes", methods=["GET"])
+def get_all_votes(id):
+    return jsonify(get_review_votes(id))
+
+@review_views.route("/reviews/<id>", methods=["DELETE"])
+def delete(id):
+    return jsonify(delete_review(id))

@@ -85,5 +85,5 @@ def get_all_users_json():
     users = get_all_users()
     if not users:
         return []
-    users = [user.toJSON() for user in users]
+    users = [user.to_json() for user in users]
     return users
