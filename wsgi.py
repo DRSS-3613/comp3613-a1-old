@@ -134,10 +134,16 @@ review_cli = AppGroup("review", help="Review object commands")
 
 @review_cli.command("create-review")
 @click.argument("student_id")
+@click.argument("reviewer_id")
 @click.argument("text")
-def create_review_command(student_id, text):
-    create_review(student_id, text)
+def create_review_command(student_id, reviewer_id, text):
+    create_review(student_id, reviewer_id, text)
     print(f"Review created!")
+
+
+@review_cli.command("get-all-reviews")
+def get_all_reviews_command():
+    print(get_all_reviews())
 
 
 @review_cli.command("get-reviews")
@@ -146,16 +152,42 @@ def get_reviews_by_student_id_command(student_id):
     print(get_reviews_by_student_id(student_id))
 
 
+@review_cli.command("get-review")
+@click.argument("review_id")
+def get_review_by_id_command(review_id):
+    print(get_review(review_id))
+
+
 @review_cli.command("upvote-review")
 @click.argument("review_id")
-def upvote_review_command(review_id):
-    upvote_review(review_id)
+@click.argument("voter_id")
+def upvote_review_command(review_id, voter_id):
+    print(get_review_votes(review_id))
+    upvote_review(review_id, voter_id)
+    print(get_review_votes(review_id))
 
 
 @review_cli.command("downvote-review")
 @click.argument("review_id")
-def downvote_review_command(review_id):
-    downvote_review(review_id)
+@click.argument("voter_id")
+def downvote_review_command(review_id, voter_id):
+    print(get_review_votes(review_id))
+    downvote_review(review_id, voter_id)
+    print(get_review_votes(review_id))
+
+
+@review_cli.command("get-review-votes")
+@click.argument("review_id")
+def get_review_votes_command(review_id):
+    print(get_review_votes(review_id))
+
+
+@review_cli.command("update-review")
+@click.argument("review_id")
+@click.argument("text")
+def update_review_command(review_id, text):
+    update_review(review_id, text)
+    print(f"Review updated!")
 
 
 app.cli.add_command(review_cli)

@@ -55,3 +55,12 @@ def update_student(id, student_id=None, name=None, programme=None, faculty=None)
         db.session.commit()
         return jsonify({"success": "Student updated"})
     return jsonify({"error": "Student not found"}), 404
+
+
+def delete_student(id):
+    student = Student.query.get(id)
+    if student:
+        db.session.delete(student)
+        db.session.commit()
+        return jsonify({"success": "Student deleted"})
+    return jsonify({"error": "Student not found"}), 404

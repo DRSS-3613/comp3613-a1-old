@@ -26,7 +26,7 @@ def get_all_reviewers_json():
     reviewers = Reviewer.query.all()
     if not reviewers:
         return []
-    reviewers = [reviewer.toJSON() for reviewer in reviewers]
+    reviewers = [reviewer.to_json() for reviewer in reviewers]
     return reviewers
 
 
@@ -63,7 +63,7 @@ def get_all_admins_json():
     admins = Admin.query.all()
     if not admins:
         return []
-    admins = [admin.toJSON() for admin in admins]
+    admins = [admin.to_json() for admin in admins]
     return admins
 
 

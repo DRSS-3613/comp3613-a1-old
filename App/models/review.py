@@ -1,4 +1,6 @@
 from App.database import db
+from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.ext.mutable import MutableDict
 
 
 class Review(db.Model):
@@ -6,26 +8,30 @@ class Review(db.Model):
     reviewer_id = db.Column(db.Integer, db.ForeignKey("reviewer.id"), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey("student.id"), nullable=False)
     text = db.Column(db.String, nullable=False)
-    num_upvotes = db.Column(db.Integer, nullable=True)
-    num_downvotes = db.Column(db.Integer, nullable=True)
+    votes = db.Column(MutableDict.as_mutable(JSON), nullable=True)
 
     def __init__(self, student_id, user_id, text):
         self.student_id = student_id
         self.reviewer_id = user_id
         self.text = text
+        self.votes = {"num_upvotes": 0, "num_downvotes": 0}
 
-    def set_defaults(self):
-        self.num_downvotes = 0
-        self.num_upvotes = 0
+    def vote(self, voter_id, vote): # this is fucked
+        self.votes.update({voter_id: vote})
+        self.votes.update({"num_upvotes": len([vote for vote in self.votes.values() if vote == "up"])})
+        self.votes.update({"num_downvotes": len([vote for vote in self.votes.values() if vote == "down"])})
 
-    def upvote(self):
-        self.num_upvotes += 1
+    def get_num_upvotes(self):
+        return self.votes["num_upvotes"]
 
-    def downvote(self):
-        self.num_downvotes += 1
+    def get_num_downvotes(self):
+        return self.votes["num_downvotes"]
 
     def get_karma(self):
-        return self.num_upvotes - self.num_downvotes
+        return self.get_num_upvotes() - self.get_num_downvotes()
+
+    def get_votes(self):
+        return self.votes
 
     def to_json(self):
         return {
@@ -33,6 +39,7 @@ class Review(db.Model):
             "student_id": self.student_id,
             "reviewer_id": self.reviewer_id,
             "text": self.text,
-            "num_upvotes": self.num_upvotes,
-            "num_downvotes": self.num_downvotes,
+            "num_upvotes": self.get_num_upvotes(),
+            "num_downvotes": self.get_num_downvotes(),
+            "karma": self.get_karma(),
         }
