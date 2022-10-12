@@ -1,10 +1,12 @@
 import flask_login
 from flask_jwt import JWT
-from App.models import User
+from App.models import Admin, Reviewer
 
 
 def authenticate(username, password):
-    user = User.query.filter_by(username=username).first()
+    user = Admin.query.filter_by(username=username).first()
+    if not user:
+        user = Reviewer.query.filter_by(username=username).first()
     if user and user.check_password(password):
         return user
     return None
@@ -12,7 +14,12 @@ def authenticate(username, password):
 
 # Payload is a dictionary which is passed to the function by Flask JWT
 def identity(payload):
-    return User.query.get(payload["identity"])
+    user = Admin.query.get(payload["identity"])
+    if not user:
+        user = Reviewer.query.get(payload["identity"])
+    if user:
+        return user
+    return None
 
 
 def login_user(user, remember):

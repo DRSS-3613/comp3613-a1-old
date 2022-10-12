@@ -8,7 +8,7 @@ from App.controllers import (
     get_student_by_student_id,
     update_student,
     get_all_students_reviews,
-    delete_student
+    delete_student,
 )
 
 student_views = Blueprint("student_views", __name__, template_folder="../templates")
@@ -60,6 +60,7 @@ def update(id):
 def list_student_reviews(id):
     reviews = get_all_students_reviews(id)
     return jsonify(reviews)
+
 
 @student_views.route("/students/<id>", methods=["DELETE"])
 def delete(id):

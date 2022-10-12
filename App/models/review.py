@@ -16,10 +16,18 @@ class Review(db.Model):
         self.text = text
         self.votes = {"num_upvotes": 0, "num_downvotes": 0}
 
-    def vote(self, voter_id, vote): # this is fucked
+    def vote(self, voter_id, vote):  # this is fucked
         self.votes.update({voter_id: vote})
-        self.votes.update({"num_upvotes": len([vote for vote in self.votes.values() if vote == "up"])})
-        self.votes.update({"num_downvotes": len([vote for vote in self.votes.values() if vote == "down"])})
+        self.votes.update(
+            {"num_upvotes": len([vote for vote in self.votes.values() if vote == "up"])}
+        )
+        self.votes.update(
+            {
+                "num_downvotes": len(
+                    [vote for vote in self.votes.values() if vote == "down"]
+                )
+            }
+        )
 
     def get_num_upvotes(self):
         return self.votes["num_upvotes"]

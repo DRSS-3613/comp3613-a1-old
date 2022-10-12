@@ -40,4 +40,3 @@ class Admin(User):
 
     def is_admin(self):
         return True
-

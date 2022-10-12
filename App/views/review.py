@@ -9,7 +9,7 @@ from App.controllers import (
     get_review,
     get_review_votes,
     update_review,
-    delete_review
+    delete_review,
 )
 
 review_views = Blueprint("review_views", __name__, template_folder="../templates")
@@ -54,14 +54,17 @@ def vote(id):
         return jsonify(upvote_review(id, data["reviewer_id"]))
     return jsonify(downvote_review(id, data["reviewer_id"]))
 
+
 @review_views.route("/reviews/<id>", methods=["PUT"])
 def update(id):
     data = request.get_json()
     return jsonify(update_review(id, data["text"]))
 
+
 @review_views.route("/reviews/<id>/votes", methods=["GET"])
 def get_all_votes(id):
     return jsonify(get_review_votes(id))
+
 
 @review_views.route("/reviews/<id>", methods=["DELETE"])
 def delete(id):
