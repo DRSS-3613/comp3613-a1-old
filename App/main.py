@@ -6,11 +6,14 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 from datetime import timedelta
+from flask_login import LoginManager
+
+login_manager = LoginManager()
 
 
 from App.database import create_db
 
-from App.controllers import review, setup_jwt
+from App.controllers import review, setup_jwt, load_user_from_id
 
 from App.views import user_views, index_views, student_views, review_views
 
@@ -53,8 +56,14 @@ def create_app(config={}):
     app.config["UPLOADED_PHOTOS_DEST"] = "App/uploads"
     photos = UploadSet("photos", TEXT + DOCUMENTS + IMAGES)
     configure_uploads(app, photos)
+    login_manager.init_app(app)
     add_views(app, views)
     create_db(app)
     setup_jwt(app)
     app.app_context().push()
     return app
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return load_user_from_id(user_id)

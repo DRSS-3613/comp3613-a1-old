@@ -70,9 +70,11 @@ def identify_user_action():
 @user_views.route("/auth", methods=["POST"])
 def login():
     data = request.get_json()
-    user = authenticate(username=data["username"], password=["password"])
+    print(data["username"])
+    print(data["password"])
+    user = authenticate(username=data["username"], password=data["password"])
     if user is not None:
-        login_user(user)
+        login_user(user, remember=False)
         return jsonify({"message": "User logged in"}), 200
     return jsonify({"error": "Invalid username or password"}), 400
 

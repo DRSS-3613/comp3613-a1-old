@@ -32,3 +32,10 @@ def logout_user():
 
 def setup_jwt(app):
     return JWT(app, authenticate, identity)
+
+
+def load_user_from_id(id):
+    user = Admin.query.get(id)
+    if not user:
+        user = Reviewer.query.get(id)
+    return user
