@@ -6,8 +6,8 @@ from flask import (
     send_from_directory,
     session,
 )
-from flask_jwt import jwt_required, current_identity
 
+from flask_login import login_required, current_user
 
 from App.controllers import (
     authenticate,
@@ -58,11 +58,11 @@ def signup():
 
 
 @user_views.route("/identify", methods=["GET"])
-@jwt_required()
+@login_required
 def identify_user_action():
     return jsonify(
         {
-            "message": f"username: {current_identity.username}, id : {current_identity.id}"
+            "message": f"username: {current_user.username}, id : {current_user.id}"
         }
     )
 
@@ -86,9 +86,9 @@ def logout():
 
 
 @user_views.route("/api/users/<id>", methods=["GET"])
-@jwt_required()
+@login_required
 def get_user_by_id(id):
-    if not current_identity.is_admin():
+    if not current_user.is_admin():
         return jsonify({"error": "Unauthorized"}), 401
     user = get_reviewer_by_id(id)
     if not user:
@@ -99,9 +99,9 @@ def get_user_by_id(id):
 
 
 @user_views.route("/api/users/<id>", methods=["DELETE"])
-@jwt_required()
+@login_required
 def delete_user_by_id(id):
-    if not current_identity.is_admin():
+    if not current_user.is_admin():
         return jsonify({"error": "Unauthorized"}), 401
     user = get_reviewer_by_id(id)
     if not user:
@@ -113,27 +113,27 @@ def delete_user_by_id(id):
 
 
 @user_views.route("/api/users")
-@jwt_required()
+@login_required
 def get_all_users_route():
-    if not current_identity.is_admin():
+    if not current_user.is_admin():
         return jsonify({"error": "Unauthorized"}), 401
     users = get_all_users_json()
     return jsonify(users)
 
 
 @user_views.route("/admins", methods=["GET"])
-@jwt_required()
+@login_required
 def get_all_admins_route():
-    if not current_identity.is_admin():
+    if not current_user.is_admin():
         return jsonify({"error": "Unauthorized"}), 401
     admins = get_all_admins_json()
     return jsonify(admins)
 
 
 @user_views.route("/reviewers", methods=["GET"])
-@jwt_required()
+@login_required
 def get_all_reviewers_route():
-    if not current_identity.is_admin():
+    if not current_user.is_admin():
         return jsonify({"error": "Unauthorized"}), 401
     reviewers = get_all_reviewers_json()
     return jsonify(reviewers)
